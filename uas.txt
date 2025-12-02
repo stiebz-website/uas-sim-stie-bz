@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UAS - Sistem Informasi Manajemen</title>
+    <style>
+        :root {
+            --primary-color: #004aad;
+            --secondary-color: #f4f4f4;
+            --text-color: #333;
+            --border-color: #ddd;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e9ecef;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding-bottom: 60px;
+        }
+
+        /* Header & Timer */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .timer-box {
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Identity Section */
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            box-sizing: border-box; 
+        }
+
+        /* Questions */
+        .question-item {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .q-number {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        textarea {
+            height: 150px;
+            resize: vertical;
+            margin-top: 10px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /* Buttons */
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #003380;
+        }
+
+        .btn-toggle-key {
+            background-color: #6c757d;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            padding: 0.5rem;
+        }
+
+        /* Answer Key (Hidden by default) */
+        .answer-key {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #e8f4ff;
+            border: 1px dashed #004aad;
+            border-radius: 5px;
+            color: #003380;
+        }
+
+        /* Print Specifics */
+        @media print {
+            header, .btn, .timer-box { display: none; }
+            body { background: white; }
+            .container { margin: 0; width: 100%; max-width: 100%; }
+            .card, .question-item { box-shadow: none; border: 1px solid #ccc; }
+            textarea { border: none; height: auto; resize: none; font-family: sans-serif;}
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div>
+        <h1 style="margin:0; font-size: 1.5rem;">UAS: Sistem Informasi Manajemen</h1>
+        <small>Dosen Pengampu: H. Pandiangan</small>
+    </div>
+    <div class="timer-box" id="timer">Sisa Waktu: 90:00</div>
+</header>
+
+<div class="container">
+    <div class="card">
+        <h2 style="margin-top:0;">Identitas Mahasiswa</h2>
+        <div class="form-group">
+            <label for="nama">Nama Lengkap:</label>
+            <input type="text" id="nama" placeholder="Masukkan nama lengkap Anda">
+        </div>
+        <div class="form-group">
+            <label for="nim">NIM:</label>
+            <input type="text" id="nim" placeholder="Masukkan NIM Anda">
+        </div>
+    </div>
+
+    <form id="examForm">
+        <div class="question-item">
+            <span class="q-number">Soal No. 1</span>
+            <p>Jelaskan definisi Sistem Informasi Manajemen (SIM) serta sebutkan dan jelaskan lima komponen utama pembentuk sistem informasi!</p>
+            <textarea name="q1" placeholder="Tulis jawaban Anda di sini..."></textarea>
+            <div class="answer-key">
+                <strong>Kunci Jawaban:</strong> SIM adalah kumpulan komponen terintegrasi untuk mengumpulkan, memproses, dan menyediakan informasi guna mendukung keputusan. 5 Komponen: Hardware, Software, Data, Prosedur, Manusia (People).
+            </div>
+        </div>
+
+        <div class="question-item">
+            <span class="q-number">Soal No. 2</span>
+            <p>Dalam konteks strategi bisnis, apa yang dimaksud dengan <em>Business–IT Alignment</em> dan mengapa hal tersebut penting bagi organisasi modern?</p>
+            <textarea name="q2" placeholder="Tulis jawaban Anda di sini..."></textarea>
+            <div class="answer-key">
+                <strong>Kunci Jawaban:</strong> Keselarasan antara strategi TI dan tujuan bisnis. Penting untuk produktivitas (naik 20-25%), inovasi cepat, dan daya saing di era digital.
+            </div>
+        </div>
+
+        <div class="question-item">
+            <span class="q-number">Soal No. 3</span>
+            <p>Jelaskan perbedaan mendasar antara <em>E-Business</em> dan <em>E-Commerce</em>, serta sebutkan sistem informasi apa saja yang dibutuhkan untuk mendukung <em>E-Business</em>!</p>
+            <textarea name="q3" placeholder="Tulis jawaban Anda di sini..."></textarea>
+            <div class="answer-key">
+                <strong>Kunci Jawaban:</strong> E-Commerce (fokus transaksi jual-beli) adalah bagian dari E-Business (cakupan luas termasuk kolaborasi internal & mitra). Sistem pendukung: ERP, CRM, SCM, DSS, KMS.
+            </div>
+        </div>
+
+        <div class="question-item">
+            <span class="q-number">Soal No. 4</span>
+            <p>Analisis bagaimana Sistem Informasi dapat meningkatkan pengambilan keputusan manajerial dan menjadi sumber keunggulan kompetitif bagi perusahaan!</p>
+            <textarea name="q4" placeholder="Tulis jawaban Anda di sini..."></textarea>
+            <div class="answer-key">
+                <strong>Kunci Jawaban:</strong> Menyediakan data real-time/akurat untuk prediksi tren. Keunggulan kompetitif didapat dari efisiensi operasional, respon cepat pasar, dan layanan pelanggan unggul.
+            </div>
+        </div>
+
+        <div class="question-item">
+            <span class="q-number">Soal No. 5</span>
+            <p>Uraikan apa yang dimaksud dengan Sistem Informasi Pemasaran (SIP) dan jelaskan empat tujuan utama dari penerapan SIP yang efektif!</p>
+            <textarea name="q5" placeholder="Tulis jawaban Anda di sini..."></textarea>
+            <div class="answer-key">
+                <strong>Kunci Jawaban:</strong> Sistem integrasi orang/prosedur untuk data pemasaran. 4 Tujuan: Info akurat, Dukungan keputusan (4P), Pemahaman tren pasar, Efisiensi pemasaran.
+            </div>
+        </div>
+
+        <div class="question-item">
+            <span class="q-number">Soal No. 6</span>
+            <p>Jelaskan apa itu <em>Enterprise Resource Planning</em> (ERP) dan bagaimana peran strategisnya dalam implementasi <em>E-Business</em>!</p>
+            <textarea name="q6" placeholder="Tulis jawaban Anda di sini..."></textarea>
+            <div class="answer-key">
+                <strong>Kunci Jawaban:</strong> Sistem terintegrasi mengelola seluruh sumber daya perusahaan. Peran: Data real-time end-to-end, otomasi alur kerja, integrasi dengan e-commerce, efisiensi biaya.
+            </div>
+        </div>
+
+        <div class="question-item">
+            <span class="q-number">Soal No. 7</span>
+            <p>Infrastruktur TI merupakan fondasi digital bagi organisasi modern. Sebutkan komponen-komponen utama infrastruktur TI dan jelaskan tren teknologi terkini yang mempengaruhinya!</p>
+            <textarea name="q7" placeholder="Tulis jawaban Anda di sini..."></textarea>
+            <div class="answer-key">
+                <strong>Kunci Jawaban:</strong> Komponen: Hardware, OS, Software App, Data Storage, Network, Internet Platform. Tren: Cloud Computing, AI Management, Platform Integration.
+            </div>
+        </div>
+
+        <div class="question-item">
+            <span class="q-number">Soal No. 8</span>
+            <p>Dalam pengembangan sistem informasi, dikenal beberapa metodologi seperti <em>Waterfall</em> dan <em>Agile</em>. Jelaskan karakteristik utama dan kapan waktu yang tepat untuk menggunakan masing-masing model tersebut!</p>
+            <textarea name="q8" placeholder="Tulis jawaban Anda di sini..."></textarea>
+            <div class="answer-key">
+                <strong>Kunci Jawaban:</strong> Waterfall (Linear/Berurutan) cocok untuk kebutuhan jelas/stabil. Agile (Iteratif/Fleksibel) cocok untuk proyek butuh inovasi cepat dan kebutuhan dinamis.
+            </div>
+        </div>
+
+        <div class="question-item">
+            <span class="q-number">Soal No. 9</span>
+            <p>Sebutkan dan jelaskan isu-isu sosial dan etika utama yang muncul akibat perkembangan Sistem Informasi!</p>
+            <textarea name="q9" placeholder="Tulis jawaban Anda di sini..."></textarea>
+            <div class="answer-key">
+                <strong>Kunci Jawaban:</strong> Privasi Data (penyalahgunaan info), Keamanan Informasi (peretasan), Digital Divide (kesenjangan akses teknologi).
+            </div>
+        </div>
+
+        <div class="question-item">
+            <span class="q-number">Soal No. 10</span>
+            <p>Berdasarkan studi kasus peluncuran produk baru (misal: Smartwatch), bagaimana Sistem Informasi Pemasaran (SIP) berperan dalam tahap Pra-Peluncuran, Peluncuran, dan Pasca-Peluncuran?</p>
+            <textarea name="q10" placeholder="Tulis jawaban Anda di sini..."></textarea>
+            <div class="answer-key">
+                <strong>Kunci Jawaban:</strong> Pra: Riset pasar/Analisis pesaing. Saat Peluncuran: Monitor stok real-time/Targeting iklan. Pasca: Analisis data penjualan/Feedback kepuasan pelanggan.
+            </div>
+        </div>
+
+        <button type="button" class="btn" onclick="submitExam()">Kirim / Simpan Jawaban (Download PDF)</button>
+        
+        <button type="button" class="btn btn-toggle-key" onclick="toggleKeys()">Tampilkan/Sembunyikan Kunci Jawaban (Mode Dosen)</button>
+    </form>
+</div>
+
+<script>
+   function submitExam() {
+        // 1. Ambil Data Mahasiswa
+        const nama = document.getElementById('nama').value;
+        const nim = document.getElementById('nim').value;
+
+        if(!nama || !nim) {
+            alert("Mohon isi Nama dan NIM terlebih dahulu!");
+            return;
+        }
+
+        // 2. Konfirmasi
+        const confirmSubmit = confirm("Apakah Anda yakin ingin menyelesaikan ujian? Jawaban akan diunduh ke dalam file .txt");
+        if (!confirmSubmit) return;
+
+        // 3. Kumpulkan semua jawaban
+        let content = "========================================\n";
+        content += "LEMBAR JAWABAN UAS SIM\n";
+        content += "========================================\n";
+        content += `Nama : ${nama}\n`;
+        content += `NIM  : ${nim}\n`;
+        content += `Waktu Submit : ${new Date().toLocaleString()}\n`;
+        content += "========================================\n\n";
+
+        // Loop untuk mengambil jawaban soal no 1 sampai 10
+        for (let i = 1; i <= 10; i++) {
+            const answer = document.getElementsByName(`q${i}`)[0].value;
+            content += `--- SOAL NO ${i} ---\n`;
+            content += `${answer ? answer : "[TIDAK DIJAWAB]"}\n\n`;
+        }
+
+        // 4. Proses Pembuatan File Download (.txt)
+        const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        
+        // Membuat elemen link sementara untuk men-trigger download
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `UAS_SIM_${nama}_${nim}.txt`; // Nama file otomatis
+        document.body.appendChild(link);
+        link.click();
+        
+        // Bersihkan
+        document.body.removeChild(link);
+        
+        alert("Jawaban berhasil diunduh! Silakan kirim file .txt tersebut ke Dosen.");
+    }
+</script>
+
+</body>
+</html>
